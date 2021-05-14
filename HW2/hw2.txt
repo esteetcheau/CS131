@@ -1,0 +1,52 @@
+Though my make_parser was not written in terms of make_matcher, 
+it had a very similar function start_rules (and parse_rules) 
+that essentially acted in the same way as make_matcher. 
+I initially tried to write a small chunk of code that 
+altered make_matcher to keep track of any nodes that 
+had been visited instead of returning what was accepted 
+(like in make_matcher). 
+
+However, I simply could not figure out how to concisely alter 
+it, hence why I ended up rewriting the make_matcher function 
+and calling it start_rules with the different functionality.
+If I had more time, I would have found a way to reuse make_matcher, 
+but my implementation ended up working to my advantage nicely.
+My start_rules function was later used to make the parse tree, 
+hence why it had to keep track of visited nodes. 
+
+I used List.rev to create the parse tree in reverse order. 
+My tree function was a very "brute force" approach to creating 
+the parse tree. Essentially, I kept track of the first symbol 
+and rule, then called my child function which got the 
+sibling of the current symbol. I then kept track of the remaining 
+path after moving on from the root and also kept track of the 
+children.
+
+The Node was created and the remaining path was used to continue 
+recursively using the function to create the rest of the tree. 
+The child function helped to construct the tree and the symbol 
+and also append the symbol to any siblings it had depending
+on whether it was nonterminal or terminal, respectively.
+
+
+The main weakness, I would say, is the fact that the functions 
+I wrote had to iterate through all the rules that were sent in 
+and if there wasn't a match, it kept backtracking and then 
+there was also a loop that was infinitely running is we had a
+nonterminal symbol pointing to itself. Additionally, my 
+make_matcher/make_parse functions were dependent on the 
+order of the rules as they only matched the first allowable 
+match they found and not any after.
+
+Overall, I had a lot of trouble initially with the make_parser
+and how the acceptor was supposed to work. I ended up having 
+to use the altered version (used for make_parser) where it
+kept track of the visited nodes and leaves, to implement
+problem 4 before problem 3. The logic to build the tree, 
+though I approached it in, what I think, was a long winded
+way, was far easier to reason through and build than problem
+3. After seeing how I was able to use it, I backtracked from
+where I was to properly build the make_matcher function and
+return the output of what the acceptor allowed. Both my functions
+ended up using recursion to see whether a rule was matched or not
+and the overall logic of it became very clear to me at the end.
