@@ -1,0 +1,84 @@
+1)
+To find whether one set is a subset of another, I wrote a recursive function
+that took the two sets in. The function compared the head of the first list with
+all of the elements in the second list to see whether it exists. It then moves on to
+the next element in the first list and the process is repeated. If all elements in
+the first set are in the second, then it is a subset.
+
+2)
+To check whether two sets are equal, I used basic set theory logic. If the first set
+is a subset of the second set and the second set is a subset of the first, then the
+two sets are equal. This function just utilizes the previous subset function.
+
+3)
+To create the union of two sets, I wrote two functions. The first, "inside," checks
+if the first input is inside the second by recursively checking if the first element
+(head) of the second input set is equal to the first. 
+The actual set union function checks the first list and matches it according to whether
+the head of the first set is inside the second set. If it is then it recursively calls
+the function with the remainder (tail) of the first set and the second set and continues
+checking. If not, it creates the list with the head and then rechecks with the tail.
+
+4)
+To create the union of all sets within a set, I simply called the set union function
+that was written previously and sent it the head and tail of the input set. Essentially,
+this function splits the sets within the set and uses the set union function to combine
+them.
+
+5)
+Because of Russel's paradox, writing a function self_member s that returns true 
+iff the set represented by s is a member of itself, would not be possible with ocaml. 
+
+Suppose we had a set S which contains all sets that do not contain themselves.
+Then if we assume set S does not contain itself, that means that set s is NOT a set that 
+does not contain itself (i.e. it contains itself), but we said set S does not contain 
+itself. Therefore, we reach a contradiction. This paradox is why we cannot create a 
+function to determine whether a set is a member of itself. 
+
+Furthermore, if we consider {𝑆|𝑆∉𝑆}, we run into the issue where 𝑆∈𝑆 will always be 
+false, and 𝑆∉𝑆 will always be true.
+If we wrote a function that checks whether a set contains itself, it will never return
+true because of the paradox and the problem that if it finds a set within itself, it will
+have to check whether that set is really the initial set, so it will search that set to
+ensure it is identical, and therefore it will keep entering a set within a set within a 
+set, etc,.
+
+
+6)
+Because a computed fixed point is an element of a functon's domain that is mapped to
+itself by the function: f(x) = x, to check for this point, I wrote a recursive function 
+that kept calling the input function f on the input x until f(x) = x until a result 
+was found.
+
+
+7)
+To find a copy of the grammar g with all unreachable rules removed, I used some previous
+functions (computed_fixed_point and equal_sets) and implemented some other helper functions.
+One function gets all the rules for nonterminals, one takes in a list of expressions and
+the rules for nonterminals and uses "List.mem" to check the first (fst) and second (snd) 
+elements and uses sets to hold various values and essentially check to see whether a 
+nonterminal is reachable (if it is called from the right side (second element)). Another
+function utilizes the computer fixed point and equal sets by sending a list which is 
+returned from an embedded function that calls the function before to get the list of
+currently reachable nonterminals. Essentially, it checks what the elements are and
+it parses the nonterminals and adds them to a list to create the reachable expressions.
+Finally, a function creates the list of unreachables and utilizes "List.filter"
+and the final function, to be called, assigns the starting expression as the first
+element in the input, and the rules as the second and returns the appropriate list
+without unreachables
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
